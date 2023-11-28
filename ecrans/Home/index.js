@@ -1,6 +1,9 @@
 import { View, Text,ScrollView, Image } from 'react-native'
 import React from 'react'
 import dashboardStyles from './style'
+import Activities from '../../composantes/activitie' 
+import Metrics from '../../composantes/metric' 
+import AddActivityButton from '../../composantes/activitie/addActivityButton'
 const Home = () => {
   return (
     <ScrollView>
@@ -10,14 +13,26 @@ const Home = () => {
         <Image style={dashboardStyles.userImage} source={require('./../../assets/images/JaneDOE.jpg')} />
       </View> 
       {/* fin du header */}
-      <View >
-            <Text style={dashboardStyles.userName}>Mon dashborad</Text>
-            </View>
       {/* début du liste des activités */}
-
-      {/* fin du liste des activités */}
-
+		<View >
+			<View style={dashboardStyles.title}>
+				<Text style={dashboardStyles.titleText}>Activités</Text>
+				<AddActivityButton/>
+			</View>
+			<Activities/>
+		</View>
+      	{/* fin du liste des activités */}
+		{/* début du liste des metrics */}	
+		<View >
+			<View style={dashboardStyles.title}>
+				<Text style={dashboardStyles.titleText}>Variables</Text>
+				<AddActivityButton/>
+			</View>
+			<Metrics/>	
+		</View>
+     	{/* fin du liste des metrics */}
     </ScrollView>
+    
   )
 }
 
