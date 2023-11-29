@@ -47,28 +47,28 @@ const dashboardStyles = StyleSheet.create({
         borderBottomColor: 'white',
         paddingVertical: 10,
         paddingHorizontal: 10,
-        width: "auto",
+        width: 180,
         backgroundColor: 'white',
-        marginRight: 20,
+        margin: 5,
         borderRadius: 15,
 
       },
     text: {
-        fontSize: 20,
+        fontSize: 18,
         marginBottom: 5,
       },
 
       idText: {
-        fontSize: 10,
+        fontSize: 8,
         fontStyle: 'italic',
       },
       headerText: {
-        fontSize: 24,
+        fontSize: 16,
         fontWeight: 'bold',
-        marginBottom: 20,
+        marginBottom: 10,
       },
       headerListItemText: {
-        fontSize: 22,
+        fontSize: 18,
         fontWeight: 'bold',
         marginBottom: 10,
         marginTop: 10,
