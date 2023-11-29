@@ -14,6 +14,11 @@ const dashboardStyles = StyleSheet.create({
     userName: {
         fontSize: 25,
     },  
+    separator: {
+        marginVertical: 8,
+        borderBottomColor: '#737373',
+        borderBottomWidth: StyleSheet.hairlineWidth,
+    },
     container: {
         flex: 1,
         backgroundColor: '#fff',
@@ -42,7 +47,7 @@ const dashboardStyles = StyleSheet.create({
         borderBottomColor: 'white',
         paddingVertical: 10,
         paddingHorizontal: 10,
-        width: 220,
+        width: "auto",
         backgroundColor: 'white',
         marginRight: 20,
         borderRadius: 15,
