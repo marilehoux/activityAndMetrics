@@ -22,6 +22,9 @@ const dashboardStyles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
+        border : 'solid',
+        borderColor: 'red',
+        borderWidth: 3,
         alignItems: 'center',
         justifyContent: 'center',
         
@@ -86,6 +89,16 @@ const dashboardStyles = StyleSheet.create({
         alignItems: 'center',
         padding: 20,
       },
+
+      formContainer: {
+        flex: 1,
+        margin: 10,
+        justifyContent: 'space-between', // Utiliser l'espace entre les éléments
+        alignItems: 'center',
+        padding: 20,
+        backgroundColor: 'white',
+        borderRadius: 15,
+      },
       modalHeaderText: {
         fontSize: 20,
         fontWeight: 'bold',
@@ -95,6 +108,9 @@ const dashboardStyles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-around', // Utiliser l'espace autour des éléments
         width: '100%',
+      },
+      input: {
+        flexDirection: 'column',
       },
       inputField: {
         height: 40,

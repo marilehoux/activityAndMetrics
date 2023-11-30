@@ -35,13 +35,10 @@ const Activities = () => {
     const handleModalClose = () => {
     setModalVisible(false);
     };
-    
-    
-    
-    const deleteActivity = () => {
+    const modifyActivityButton = () => {
         return (
             <View>
-                <Button title='supprimer une activité'></Button>
+                <Button title="enregistrer"></Button>
             </View>
         )
     }
@@ -58,26 +55,28 @@ const Activities = () => {
             onRequestClose={handleModalClose}
           >
             <View style={dashboardStyles.modalContainer}>
-              <Text style={dashboardStyles.modalHeaderText}>Modification:</Text>
-              <Text>libellé : </Text>
-              
-              {/* <TextInput
-                style={dashboardStyles.inputField}
-                placeholder='libellé'
-                value={}
-                onChangeText={handleFirstNameChange}
-              /> */}
-    
-             <View style={dashboardStyles.modalButtonContainer}>
-                <Button title="X" onPress={handleModalClose} />
-                </View>
+				<View style={dashboardStyles.modalHeader}>
+					<Text style={dashboardStyles.modalHeaderText}>Modification #id:</Text>
+				</View>
+					<View style={dashboardStyles.input}>
+							<Text style={dashboardStyles.inputField}>{'activity'}</Text>
+							<TextInput style={dashboardStyles.inputField}>libellé</TextInput>
+							<TextInput style={dashboardStyles.inputField}>description</TextInput>
+							<TextInput style={dashboardStyles.inputField}>start</TextInput>
+							<TextInput style={dashboardStyles.inputField}>end</TextInput>
+							<TextInput style={dashboardStyles.inputField}>url_logo</TextInput>
+							<TextInput style={dashboardStyles.inputField}>url_img</TextInput>
+							<TextInput style={dashboardStyles.inputField}>groups</TextInput>
+						</View>
+            
     
               <View style={dashboardStyles.modalButtonContainer}>
-                {deleteActivity()}
-                {/* <Button title="Supprimer" onPress={handleDeleteData} /> */}
-                {/* <Button title="Save" onPress={handleSaveData} /> */}
+					<Button title="Annuler" color="#FF0000" onPress={handleModalClose} />
+                {modifyActivityButton()}
+						{/* <Button title="Supprimer" onPress={handleDeleteData} /> */}
+						{/* <Button title="Save" onPress={handleSaveData} /> */}
               </View>
-            </View>
+			</View>
           </Modal>
         );
       };

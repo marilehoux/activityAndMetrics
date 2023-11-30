@@ -3,7 +3,8 @@ import React from 'react'
 import dashboardStyles from './style'
 import Activities from '../../composantes/activitie' 
 import Metrics from '../../composantes/metric' 
-import TouchableHighlightExample from '../../composantes/activitie/editActivityButton'
+import TouchableHighlightExample from '../../composantes/activitie/createActivityButton'
+import CreateActivity from '../../composantes/activitie/createActivity'
 const Home = () => {
 	const Separator = () => <View style={dashboardStyles.separator} />;
   return (
@@ -21,6 +22,7 @@ const Home = () => {
 				<Text style={dashboardStyles.titleText}>Activités</Text>
 				<TouchableHighlightExample/>
 			</View>
+			<CreateActivity/>
 			<Activities/>
 		</View>
       	{/* fin du liste des activités */}
