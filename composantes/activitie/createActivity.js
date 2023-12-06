@@ -1,10 +1,14 @@
 import { View, Text, Button, Alert, TextInput} from 'react-native'
 import React, {useState} from 'react';
-import dashboardStyles from '../../ecrans/Home/style';
+import dashboardStyles from '../../ecrans/Activities/style';
 
 
 const CreateActivity = () => {
 	const [activity, setActivity] = useState(0);
+	const cancel = () => {
+		Alert.alert('annuler');
+	}
+	
 
     //une fonction fléchée  save pour enregistrer les informations du formulaire
     const save = () => {
@@ -15,8 +19,8 @@ const CreateActivity = () => {
 			const postActivity = async () => {
 			 	let newActivity = {
 
-					"name": "TUTO REACT",
-					"description": "Service de Jessica aussi ",
+					"name": "APPLI d'installation",
+					"description": "Une aplli pour tout savoir sur l'installation d'une appli react chez Pebble ",
 				// 		// "start": "20/20/2023",
 				// 		// "end": "21/10/2024",
 				// 		// "color": "#4287f5",
@@ -61,21 +65,20 @@ const CreateActivity = () => {
 
     //une fonction fléchée  renderView pour afficher le formulaire
     const renderView = () => {
-    
         return (
-			<View style={dashboardStyles.formContainer}>
+			<View style={dashboardStyles.modalContainer} >
+					<Text style={dashboardStyles.text}>Nouvelle activité {activity}</Text>
 				<View style={dashboardStyles.input}>
-					<Text style={dashboardStyles.inputField}>{activity}</Text>
-					<TextInput style={dashboardStyles.inputField}>libellé</TextInput>
-					<TextInput style={dashboardStyles.inputField}>description</TextInput>
-					<TextInput style={dashboardStyles.inputField}>start</TextInput>
-					<TextInput style={dashboardStyles.inputField}>end</TextInput>
-					<TextInput style={dashboardStyles.inputField}>url_logo</TextInput>
-					<TextInput style={dashboardStyles.inputField}>url_img</TextInput>
-					<TextInput style={dashboardStyles.inputField}>groups</TextInput>
+					<TextInput style={dashboardStyles.inputField} placeholder = 'libellé'></TextInput>
+					<TextInput style={dashboardStyles.inputField} placeholder = 'description'></TextInput>
+					<TextInput style={dashboardStyles.inputField} placeholder = 'start'></TextInput>
+					<TextInput style={dashboardStyles.inputField} placeholder = 'end'></TextInput>
+					<TextInput style={dashboardStyles.inputField} placeholder = 'url_logo'></TextInput>
+					<TextInput style={dashboardStyles.inputField} placeholder = 'url_img'></TextInput>
+					<TextInput style={dashboardStyles.inputField} placeholder = 'groups'></TextInput>
 				</View>
 				<View style={dashboardStyles.buttonContainer}>
-					<Button title="Annuler" color='#FF0000' onPress={save} />
+					<Button title="Annuler" color='#FF0000' onPress={cancel} />
 					<Button title="enregister l'activité" onPress={save} />
 				</View>
 			</View>

@@ -57,6 +57,7 @@ const dashboardStyles = StyleSheet.create({
 		
 	},
 	text: {
+    color:'white',
 		fontSize: 18,
 		marginBottom: 5,
 	},
