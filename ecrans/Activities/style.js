@@ -62,8 +62,9 @@ const dashboardStyles = StyleSheet.create({
 	},
 	
 	idText: {
-		fontSize: 8,
+		fontSize: 15,
 		fontStyle: 'italic',
+		alignSelf: 'flex-end',
 	},
 	headerText: {
 		fontSize: 16,
@@ -71,7 +72,7 @@ const dashboardStyles = StyleSheet.create({
 		marginBottom: 10,
 	},
 	headerListItemText: {
-		fontSize: 18,
+		fontSize: 20,
 		fontWeight: 'bold',
 		marginBottom: 10,
 		marginTop: 10,

@@ -1,7 +1,6 @@
 import React, { useState} from 'react';
-import { StyleSheet, Text, TouchableHighlight, View} from 'react-native';
+import { StyleSheet, Text, TouchableHighlight, Alert, View} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-
 
 
 const DeleteActivityButton = ({title, id}) => {
@@ -9,7 +8,6 @@ const DeleteActivityButton = ({title, id}) => {
 	const [activity, setActivity] = useState(0);
 	
 	const onPressButton = () => {
-
 			const deleteActivity = async () => {
 				let activity = {
 					id: id,
@@ -21,14 +19,14 @@ const DeleteActivityButton = ({title, id}) => {
 							'Content-Type': 'application/json',
 						},
 					});
-					if (response){
+					if (response .status ==202){
+						Alert.alert('suppression effectuée');
 						console.table(response, 'response');
 						console.log(response.status, 'responseStatus');
 						let data = await response.json();
 						console.log(data, 'data');
 						console.log(data.status, 'data');
 						console.table(data, 'datatable');
-						setActivity('supprimé');
 
 					}
 					else if (error)	{

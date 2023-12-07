@@ -1,13 +1,13 @@
-import { View, Text, SafeAreaView, Image} from 'react-native'
+import { View, Text,  Image, ScrollView } from 'react-native'
 import React from 'react'
 import dashboardStyles from './style'
 import Metrics from '../../composantes/metric'
 
-const Screen2 = () => {
+const Metric = () => {
 	const Separator = () => <View style={dashboardStyles.separator} />;
 
     return (
-        <SafeAreaView>
+        <ScrollView>
 				{/* début du header */}
 				<View style={dashboardStyles.header}>
 					<Text style={dashboardStyles.userName}>Amandine DOE</Text>
@@ -17,14 +17,14 @@ const Screen2 = () => {
 				{/* début du liste des variables */}
 				<View style={dashboardStyles.title}>
 					<Text style={dashboardStyles.titleText}>Mes variables</Text>
-					</View>
+				</View>
+				<View>
 					<Metrics/>
 				{/* fin du liste des variables */}
-				<Separator/>
-			
-
-        </SafeAreaView>
-      )
+					<Separator/>	
+				</View>
+        </ScrollView>
+    )
 }
 
-export default Screen2
+export default Metric

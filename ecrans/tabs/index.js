@@ -1,9 +1,9 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import Home from '../Activities';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import Messages from '../Metrics';
+import Home from '../Activities';
+import Metric from '../Metrics';
 import Parametres from '../Parametres';
 
 const BottomTabs = () => {
@@ -33,7 +33,7 @@ const BottomTabs = () => {
           />
           <Tab.Screen
             name="tabs_Home1"
-            component={Messages}
+            component={Metric}
             options={{
               tabBarLabel: 'Variables',
               tabBarIcon: ({ color, size }) => (
