@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
-import { PADDING } from "../../outils/constantes";
+import { PADDING } from "./constantes";
 
-const dashboardStyles = StyleSheet.create({
+const appStyles = StyleSheet.create({
 	header: {
 		flexDirection: 'row',
 		justifyContent: 'space-between',
@@ -127,4 +127,4 @@ const dashboardStyles = StyleSheet.create({
 	},
 });
 
-export default dashboardStyles;
+export default appStyles;

@@ -24,21 +24,16 @@ const Activities = () => {
 	const handleModifiedDescriptionChange = (text) => {
 		setModifiedDescription(text);
 	};
-	const handleModifiedStartChange = (date) => {
-		setModifiedStart(date);
+	const handleModifiedStartChange = (text) => {
+		setModifiedStart(text);
 	};
-	const handleModifiedEndChange = (date) => {
-		setModifiedEnd(date);
+	const handleModifiedEndChange = (text) => {
+		setModifiedEnd(text);
 	};
 	const handleModifiedColorChange = (text) => {
 		setModifiedColor(text);
 	};
-	const handleModifiedUrl_logoChange = (text) => {
-		setModifiedUrl_logo(text);
-	};
-	const handleModifiedUrl_imgChange = (text) => {
-		setModifiedUrl_img(text);
-	};
+	
 
 
 	
@@ -50,8 +45,7 @@ const Activities = () => {
 				const response = await fetch(url);
 				const data = await response.json();
 				setter(data);
-				console.log(response, 'response');
-				console.log(data, 'data');
+			
 			};
 
 			await Promise.all([
@@ -67,13 +61,22 @@ const Activities = () => {
 
     const handleItemClick = (item) => {
 		setSelectedItem(item);
-		setModifiedLabel(item.label);
-		setModifiedDescription(item.description);
-		setModifiedStart(item.start || '');
-		setModifiedEnd(item.end || '');
-		setModifiedColor(item.color || '');
-		setModifiedUrl_logo(item.url_logo || '');
-		setModifiedUrl_img(item.url_img || '');
+		// if((item.label === null) || (item.label === undefined)){
+		// 	item.label = 'libellé';
+		// }
+		// setModifiedDescription(item.description || 'description');
+		// if((item.description === null) || (item.description === undefined)){
+		// 	item.description = 'date début';
+		// }
+		// setModifiedLabel(item.label || 'libellé');
+		// if((item.label === null) || (item.label === undefined)){
+		// 	item.label = 'description';
+		// }
+		setModifiedColor(item.color);
+		if((item.color === null) || (item.color === undefined)){
+			item.color = 'grey';
+		}
+		
 		setModalVisible(true);
     };
     const handleModalClose = () => {
@@ -86,11 +89,10 @@ const Activities = () => {
 				"id": selectedItem._id,
 				"label": modifiedLabel,
 				"description": modifiedDescription,
-				"start": modifiedStart,
-				"end": modifiedEnd,
+				// "start": modifiedStart,
+				// "end": modifiedEnd,
 				"color": modifiedColor,
-				"url_logo": modifiedUrl_logo,
-				"url_img": modifiedUrl_img
+				
 			}
 			console.log(modifiedActivity, 'activity')
 			try {
@@ -102,7 +104,12 @@ const Activities = () => {
 					body: JSON.stringify(modifiedActivity),
 				});
 				// let data = await response.json();
-					if (response.status === 400 || response.status === 403 || response === 404 || response === 422 || response == 429 || response === 500){
+					if (response.status === 400 ||
+						response.status === 403 ||
+						response === 404 ||
+						response === 422 ||
+						response == 429 ||
+						response === 500){
 						Alert.alert(response.message, 'modification impossible');
 						console.log(response, 'response');
 						
@@ -112,19 +119,12 @@ const Activities = () => {
 						console.log(response, 'response');
 						
 					}
-					else {
-						console.log(response.json(), 'ko');
-						console.log(response, 'response');
-						console.log (response.detail);
-						console.log (response);
-					}
-					console.log(response, 'response');
-					console.log (response.detail);
-					console.log (response);
-					// setActivity('ok');
+					
 			}
 			catch (error) {
 				console.error('Erreur lors de la récupération des données:', error);
+				Alert.alert('modification a échoué', error);
+
 			}
 		}
 		modifyActivity();
@@ -150,64 +150,64 @@ const Activities = () => {
             onRequestClose={handleModalClose}
           >
             <View style={dashboardStyles.modalContainer}>
+					<View style={dashboardStyles.modalButtonContainer}>
+						<Button title="Annuler" color="grey" onPress={handleModalClose} />
+					</View>
 				<View style={dashboardStyles.modalHeader}>
+					<Text style={dashboardStyles.headerText}>MODIFICATION</Text>
+					<Text style={dashboardStyles.headerText}>{selectedItem.label}</Text>
+					<Text style={dashboardStyles.idText}># {selectedItem._id}</Text>
+					<Text style={dashboardStyles.idText}> {selectedItem.status}</Text>
+
 				</View>
-					<Text style={dashboardStyles.textHeader}>Modification de {selectedItem.label}</Text>
 					<View style={dashboardStyles.input}>
-						<Text style={dashboardStyles.inputField}># {selectedItem._id}</Text>
+						<Text style={dashboardStyles.idLabel}>Label</Text>
 						<TextInput 
 							style={dashboardStyles.inputField}
 							placeholder={selectedItem.label}
-							value={setModifiedLabel}
+							value={modifiedLabel}
 							onChangeText={handleModifiedLabelChange}>
 						</TextInput>
+						<Text style={dashboardStyles.idLabel}>Description</Text>
+						
 						<TextInput
 							style={dashboardStyles.inputField}
 							placeholder={selectedItem.description}
-							value={setModifiedDescription}					 	
+							value={modifiedDescription}					 	
 							onChangeText={handleModifiedDescriptionChange}
 							>
 						</TextInput>
+						<Text style={dashboardStyles.idLabel}>Couleur</Text>
 						<TextInput
-							dataDetectorTypes={'[calendarEvent]'}
+							style={dashboardStyles.inputField}
+							placeholder={selectedItem.color}
+							value={modifiedColor}
+							onChangeText={handleModifiedColorChange}
+							>
+						</TextInput>
+						{/* <Text style={dashboardStyles.idLabel}>Début</Text>
+						<TextInput
 							style={dashboardStyles.inputField}
 							placeholder={selectedItem.start}
 							value={setModifiedStart}
 							onChange={handleModifiedStartChange}
 							>
-						</TextInput>
+						</TextInput> */}
+						{/* <Text style={dashboardStyles.idLabel}>Fin</Text>
 						<TextInput
-							dataDetectorTypes={['calendarEvent']}
 							style={dashboardStyles.inputField}
 							placeholder={selectedItem.end}
 							value={setModifiedEnd}
 							onChange={handleModifiedEndChange}
 							>
-						</TextInput>
-						<TextInput
-							style={dashboardStyles.inputField}
-							placeholder={selectedItem.color}
-							value={setModifiedColor}
-							onChange={handleModifiedColorChange}
-							>
-						</TextInput>
-						<TextInput
-							style={dashboardStyles.inputField}
-							placeholder={selectedItem.url_logo}
-							value={setModifiedUrl_logo}
-							onChange={handleModifiedUrl_logoChange}
-							>
-						</TextInput>
-						<TextInput
-							style={dashboardStyles.inputField}
-							placeholder={selectedItem.url_img}
-							value={setModifiedUrl_img}
-							onChange={handleModifiedUrl_imgChange}
-							>
-						</TextInput>
+						</TextInput> */}
+						
 					</View>
 				<View style={dashboardStyles.modalButtonContainer}>
-					<Button title="Annuler" color="#FF0000" onPress={handleModalClose} />
+					<DeleteActivityButton
+						title={selectedItem.label}
+						id={selectedItem._id}
+					/>
 					<Button title="enregistrer" onPress={modifyActivityButton} />
 				</View>
 			</View>
@@ -215,6 +215,13 @@ const Activities = () => {
         );
       };
       const renderList = () => {
+		const formatageDate = (text) => {
+			if (text) {
+				let dateFormatee = new Date(text).toLocaleDateString('fr-FR');
+				return dateFormatee;
+			}	
+			
+		}
         if (!activities) {
           return null;
         }
@@ -226,23 +233,20 @@ const Activities = () => {
                   keyExtractor={(item) => item._id.toString()}
                   renderItem={({ item }) => (
 					<View style={dashboardStyles.itemContainer}>
+						<Text style={dashboardStyles.idText}>#{item._id}</Text>
 						<TouchableHighlight onPress={() => handleItemClick(item)}>
 							<View >
 								<Text style={dashboardStyles.headerListItemText}>{item.label}</Text>
 								<Text style={dashboardStyles.text}>{item.description}</Text>
-								<Text style={dashboardStyles.text}>début: {item.start}</Text>
-								<Text style={dashboardStyles.text}>fin: {item.end}</Text>
-								<Text style={dashboardStyles.text}>couleur: {item.color}</Text>
-								<Text style={dashboardStyles.text}>logo: {item.url_logo}</Text>
-								<Text style={dashboardStyles.text}>image: {item.img}</Text>
+								<Text style={dashboardStyles.text}><Text style={dashboardStyles.idText}>début: </Text>{formatageDate(item.start)}</Text>
+								<Text style={dashboardStyles.text}><Text style={dashboardStyles.idText}>fin: </Text>{formatageDate(item.end)}</Text>
+								<Text style={dashboardStyles.text}><Text style={dashboardStyles.idText}>couleur: </Text>{item.color}</Text>
+								<Text style={dashboardStyles.text}><Text style={dashboardStyles.idText}>logo: </Text>{item.url_logo}</Text>
+								<Text style={dashboardStyles.text}><Text style={dashboardStyles.idText}>img: </Text>{item.img}</Text>
 								<Text style={dashboardStyles.text}>statut: {item.status}</Text>
 							</View>
 						</TouchableHighlight>
-						<DeleteActivityButton 
-						title={item.label}
-						id={item._id}
-						/>
-								<Text style={dashboardStyles.idText}>#{item._id}</Text>
+						
 					</View>
                   )}
                 />

@@ -1,10 +1,35 @@
 import { View, Text, Button, Alert, TextInput} from 'react-native'
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import dashboardStyles from '../../ecrans/Activities/style';
+import { fetchData } from '../../actions/fechdata';
 
 
 const CreateActivity = () => {
-	const [activity, setActivity] = useState(0);
+	const [activity, setActivity] = useState('création d\'une nouvelle activité');
+	const [createLabel, setCreateLabel] = useState('');
+	const [createDescription, setCreateDescription] = useState('');
+	const [createStart, setCreateStart] = useState('');
+	const [createEnd, setCreateEnd] = useState('');
+	const [createColor, setCreateColor] = useState('');
+	
+
+	const handleCreateLabel = (text) => {
+		setCreateLabel(text);
+	};
+	const handleCreateDescription = (text) => {
+		setCreateDescription(text);
+	};
+	const handleCreateStart = (text) => {
+		setCreateStart(text);
+	};
+	const handleCreateEnd = (text) => {
+		setCreateEnd(text);
+	};
+	const handleCreateColor = (text) => {
+		setCreateColor(text);
+	};
+	
+	
 	const cancel = () => {
 		Alert.alert('annuler');
 	}
@@ -12,70 +37,97 @@ const CreateActivity = () => {
 
     //une fonction fléchée  save pour enregistrer les informations du formulaire
     const save = () => {
-		Alert.alert('allez');
 		
 		{/*fonction setandpost activity qui envoie les données au serveur avec une requête post*/}
-			
-			const postActivity = async () => {
-			 	let newActivity = {
-
-					"name": "APPLI d'installation",
-					"description": "Une aplli pour tout savoir sur l'installation d'une appli react chez Pebble ",
-				// 		// "start": "20/20/2023",
-				// 		// "end": "21/10/2024",
-				// 		// "color": "#4287f5",
-				// 		// "url_logo": "",
-				// 		// "url_img": "",
-				// 		// "groups": [],
+		
+		const postActivity = async () => {
+			let newActivity = {
+				
+				"label": createLabel,
+				"description": createDescription,
+				// "start": createStart,
+				// "end": createEnd,
+				"color": createColor,
+				
 			};	
-				try {
-					const response = await fetch('https://api.pebble.solutions/v5/activiti/', {
-						method: 'POST',
-						headers: {
-							'Content-Type': 'application/json',
-						},
-						body: JSON.stringify(newActivity),
-					});
-					console.log(response, 'response');
-					console.log(response.status, 'response.status')
-					if (response){
+			try {
+				const response = await fetch('https://api.pebble.solutions/v5/activity/', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify(newActivity),
+				});
+				
+				if (response.status == 201){
+						Alert.alert('enregistrement effectué');
 						let data = response.json();
 						console.log(data, 'data');
-						setActivity('ok');
+						setActivity('mise à jour effectuée');
+							
 
 					}
 						
-					else	{
-						console.log(response.json(), 'ko');
-					}
-
-				}
-				catch (error) {
-					console.error('Erreur lors de la récupération des données:', error);
+				else if (response.status == 400 ||
+						 response.status == 403 ||
+						 response.status == 404 || 
+						 response.status == 429 ||
+						 response.status == 422 ||
+						 response.status == 500){	
+						Alert.alert('enregistrement impossible');
 				}
 			}
+			catch (error) {
+				console.error('Erreur lors de la récupération des données:', error);
+				Alert.alert('enregistrement a échoué');
+			}
+		}
 		postActivity();
       } 
-   //une fonction fléchée  checkout pour quitter le formulaire
-    const checkout = () => {
-       
-      }
+   
 
 
 
     //une fonction fléchée  renderView pour afficher le formulaire
     const renderView = () => {
         return (
-			<View style={dashboardStyles.modalContainer} >
-					<Text style={dashboardStyles.text}>Nouvelle activité {activity}</Text>
+			<View style={dashboardStyles.itemContainer} >
+					<Text style={dashboardStyles.text}>{activity}</Text>
+					
 				<View style={dashboardStyles.input}>
-					<TextInput style={dashboardStyles.inputField} placeholder = 'libellé'></TextInput>
-					<TextInput style={dashboardStyles.inputField} placeholder = 'description'></TextInput>
-					<TextInput style={dashboardStyles.inputField} placeholder = 'start'></TextInput>
-					<TextInput style={dashboardStyles.inputField} placeholder = 'end'></TextInput>
-					<TextInput style={dashboardStyles.inputField} placeholder = 'url_logo'></TextInput>
-					<TextInput style={dashboardStyles.inputField} placeholder = 'url_img'></TextInput>
-					<TextInput style={dashboardStyles.inputField} placeholder = 'groups'></TextInput>
+					<TextInput
+					 style={dashboardStyles.inputField}
+					 placeholder = 'libellé'
+					 value ={createLabel}
+					 onChangeText={handleCreateLabel}>
+					 </TextInput>
+
+					<TextInput 
+						style={dashboardStyles.inputField}
+						placeholder = 'description'
+						value={createDescription}
+						onChangeText={handleCreateDescription}>
+					</TextInput>
+					<TextInput
+						style={dashboardStyles.inputField}
+						placeholder = 'color'
+						value={createColor}
+						onchangeText={handleCreateColor}>
+					</TextInput>
+
+					{/* <TextInput 
+						style={dashboardStyles.inputField}
+						placeholder='date start'
+					 	value = {setCreateStart}
+						onchangeText={handleCreateStart}>
+					</TextInput>
+					<TextInput
+						style={dashboardStyles.inputField}
+						placeholder = 'end'
+						value={setCreateEnd}
+						onchangeText={handleCreateEnd}>
+					</TextInput> */}
+					
 				</View>
 				<View style={dashboardStyles.buttonContainer}>
 					<Button title="Annuler" color='#FF0000' onPress={cancel} />

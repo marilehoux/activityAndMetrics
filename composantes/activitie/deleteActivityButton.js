@@ -8,42 +8,39 @@ const DeleteActivityButton = ({title, id}) => {
 	const [activity, setActivity] = useState(0);
 	
 	const onPressButton = () => {
+
 			const deleteActivity = async () => {
 				let activity = {
 					id: id,
 				}
-				
+				try{
 					const response = await fetch('https://api.pebble.solutions/v5/activity/'+activity.id, {
 						method: 'DELETE',
 						headers: {
 							'Content-Type': 'application/json',
 						},
 					});
+	
 					if (response .status ==202){
 						Alert.alert('suppression effectuée');
-						console.table(response, 'response');
-						console.log(response.status, 'responseStatus');
-						let data = await response.json();
-						console.log(data, 'data');
-						console.log(data.status, 'data');
-						console.table(data, 'datatable');
-
 					}
-					else if (error)	{
-						console.error('Erreur lors de la récupération des données:', error);
+					else if (response.status == 400 ||
+						response.status == 403 ||
+						response.status == 404 || 
+						response.status == 429 ||
+						response.status == 422 ||
+						response.status == 500){	
+					Alert.alert('enregistrement impossible');
 					}
-
-					
-				
-				// else (error) {
-				// 	console.error('Erreur lors de la récupération des données:', error);
-				
-				// finally {
-				// 	console.log('ok');
-				// }
+				}
+				catch (error) {
+					console.error('Erreur lors de la récupération des données:', error);
+					Alert.alert('enregistrement a échoué');
+				}
 			}	
 			deleteActivity();
-		}
+
+	}
 	return (
 		<View style={styles.container}>
 			<TouchableHighlight onPress={onPressButton}>

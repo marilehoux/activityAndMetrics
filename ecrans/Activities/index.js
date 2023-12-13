@@ -1,27 +1,31 @@
 import { View, Text, Image, ScrollView} from 'react-native'
 import React from 'react'
-import dashboardStyles from './style'
+import appStyles from '../../outils/style'
 import Activities from '../../composantes/activitie' 
+import CreateActivity from '../../composantes/activitie/createActivity'
+import MaterialCommutyIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
 
 
 const Home = () => {
-	const Separator = () => <View style={dashboardStyles.separator} />;
+	const Separator = () => <View style={appStyles.separator} />;
 
 	return (
 		<ScrollView>
 			<View>
 
 			{/* début du header */}
-			<View style={dashboardStyles.header}>
-				<Text style={dashboardStyles.userName}>Amandine DOE</Text>
-				<Image style={dashboardStyles.userImage} source={require('./../../assets/images/JaneDOE.jpg')} />
+			<View style={appStyles.header}>
+				<MaterialCommutyIcons name="menu" color={'black'} size={30} />	
+				<Text style={appStyles.userName}>Amandine DOE</Text>
+				<Image style={appStyles.userImage} source={require('./../../assets/images/JaneDOE.jpg')} />
 			</View> 
 			</View>
 			{/* fin du header */}
-			<View style={dashboardStyles.title}>
-				<Text style={dashboardStyles.titleText}>Mes activités</Text>
+			<View style={appStyles.title}>
+				<Text style={appStyles.titleText}>Mes activités</Text>
 			</View>
+			<CreateActivity/>
 			<View>
 				{/* début du liste des activités */}	
 				<Activities/>
