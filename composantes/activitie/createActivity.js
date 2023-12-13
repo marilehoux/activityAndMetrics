@@ -45,9 +45,9 @@ const CreateActivity = () => {
 				
 				"label": createLabel,
 				"description": createDescription,
+				"color": createColor,
 				// "start": createStart,
 				// "end": createEnd,
-				"color": createColor,
 				
 			};	
 			try {

@@ -4,10 +4,23 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 
 const DeleteActivityButton = ({title, id}) => {
-
+	
 	const [activity, setActivity] = useState(0);
+	const AlertConfirm = () =>
+    Alert.alert('ATTENTION', 'Souhaitez-vous supprimer cette activité?', [
+      {
+        text: 'Annuler',
+        // onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+      },
+      {text: 'OK',
+	   onPress: () => onPressButton(),
+		style: 'cancel',},
+    ]);
+
 	
 	const onPressButton = () => {
+		Alert.alert('suppression de l\'activité	');
 
 			const deleteActivity = async () => {
 				let activity = {
@@ -30,12 +43,12 @@ const DeleteActivityButton = ({title, id}) => {
 						response.status == 429 ||
 						response.status == 422 ||
 						response.status == 500){	
-					Alert.alert('enregistrement impossible');
+					Alert.alert('suppression impossible');
 					}
 				}
 				catch (error) {
 					console.error('Erreur lors de la récupération des données:', error);
-					Alert.alert('enregistrement a échoué');
+					Alert.alert('la suppression a échoué');
 				}
 			}	
 			deleteActivity();
@@ -43,12 +56,13 @@ const DeleteActivityButton = ({title, id}) => {
 	}
 	return (
 		<View style={styles.container}>
-			<TouchableHighlight onPress={onPressButton}>
+			<TouchableHighlight onPress={AlertConfirm}>
 				<View style={styles.button}>
 					<Text style={styles.text}>{title}</Text>
 					<MaterialCommunityIcons name="trash-can" color={'white'} size={25} />
 				</View>
 			</TouchableHighlight>
+			
 		</View>
 );
 }
