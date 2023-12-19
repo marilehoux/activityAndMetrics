@@ -1,21 +1,22 @@
 import React, { useState} from 'react';
-import { StyleSheet, Text, TouchableHighlight, Alert, View} from 'react-native';
+import {  Text, TouchableHighlight, Alert, View} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import appStyles from '../../outils/style';
 
 
 const DeleteActivityButton = ({title, id}) => {
 	
-	const [activity, setActivity] = useState(0);
+	const [activity, setActivity] = useState(null);
 	const AlertConfirm = () =>
     Alert.alert('ATTENTION', 'Souhaitez-vous supprimer cette activité?', [
-      {
-        text: 'Annuler',
-        // onPress: () => console.log('Cancel Pressed'),
-        style: 'cancel',
-      },
-      {text: 'OK',
-	   onPress: () => onPressButton(),
-		style: 'cancel',},
+		{
+		text: 'Annuler',
+		// onPress: () => console.log('Cancel Pressed'),
+		style: 'cancel',
+		},
+		{text: 'OK',
+		onPress: () => onPressButton(),
+		},
     ]);
 
 	
@@ -36,6 +37,7 @@ const DeleteActivityButton = ({title, id}) => {
 	
 					if (response .status ==202){
 						Alert.alert('suppression effectuée');
+						setActivity(null);
 					}
 					else if (response.status == 400 ||
 						response.status == 403 ||
@@ -55,10 +57,10 @@ const DeleteActivityButton = ({title, id}) => {
 
 	}
 	return (
-		<View style={styles.container}>
+		<View>
 			<TouchableHighlight onPress={AlertConfirm}>
-				<View style={styles.button}>
-					<Text style={styles.text}>{title}</Text>
+				<View style={appStyles.button}>
+					<Text style={appStyles.textWhite}>{title}</Text>
 					<MaterialCommunityIcons name="trash-can" color={'white'} size={25} />
 				</View>
 			</TouchableHighlight>
@@ -68,25 +70,6 @@ const DeleteActivityButton = ({title, id}) => {
 }
 
 
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		justifyContent: 'center',
-		alignItems: 'start',
-		
-	},
-	button: {
-		flexDirection: 'row',
-		alignItems: 'center',
-		justifyContent: 'space-between',
-		backgroundColor: '#d46363',
-		padding: 10,
-		borderRadius: 15,
-	},
-	
-	text: {
-		color: 'white',
-	},
-});
+
 
 export default DeleteActivityButton;

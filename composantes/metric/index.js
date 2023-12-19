@@ -20,7 +20,7 @@ const Metrics = () => {
 				};
 				
 				await Promise.all([
-					fetchAndSetData('https://api.pebble.solutions/v5/metric/variable/', setMetrics),
+					fetchAndSetData('https://api.pebble.solutions/v5/metric/', setMetrics),
 				]);
 			} catch (error) {
 				console.error('Erreur lors de la récupération des données:', error);

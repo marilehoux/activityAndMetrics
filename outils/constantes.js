@@ -23,7 +23,9 @@ export const COLORMAIN = {
     lightRed: '#FFC0CB',
     lightYellow: '#FFFFE0',
     lightOrange: '#FFDAB9',
-    lightBrown: '#D2B48C'
+    lightBrown: '#D2B48C',
+    bluet: '#d5e1f5',
+    pinket: '#f0d1d7',
     };
 
 export const COLORS ={

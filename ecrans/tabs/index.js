@@ -4,7 +4,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import Home from '../Activities';
 import Metric from '../Metrics';
-import Parametres from '../Parametres';
+import Parametres from '../Variables';
 
 const BottomTabs = () => {
     const Tab = createMaterialBottomTabNavigator();
@@ -16,9 +16,9 @@ const BottomTabs = () => {
             color="white"
             screenOptions={{
                 tabBarActiveTintColor: '#e91e63',
-                activeColor: 'red',
+                activeColor: '#4287f5',
                 headerShown: false,
-                inactiveColor: 'grey',
+                inactiveColor: 'red',
             }}
         >
           <Tab.Screen
@@ -27,29 +27,32 @@ const BottomTabs = () => {
             options={{
               tabBarLabel: 'Activités',
               tabBarIcon: ({ color, size }) => (
-                <MaterialCommunityIcons name="table-clock" color={color} size={25} />
+                <MaterialCommunityIcons name="table-clock" color={color} size={30} />
               ),
+                // tabBarBadge: 3,
             }}
           />
           <Tab.Screen
             name="tabs_Home1"
             component={Metric}
             options={{
-              tabBarLabel: 'Variables',
+              tabBarLabel: 'Metrics',
               tabBarIcon: ({ color, size }) => (
-                <MaterialCommunityIcons name="table-headers-eye" color={color} size={25} />
+                <MaterialCommunityIcons name="table-headers-eye" color={color} size={30} />
               ),
-              tabBarBadge: 1,
+              //  tabBarBadge: 8,
             }}
           />
           <Tab.Screen
             name="tabs_home2"
             component={Parametres}
             options={{
-              tabBarLabel: 'Paramètres',
+              tabBarLabel: 'Variables',
               tabBarIcon: ({ color, size }) => (
-                <MaterialCommunityIcons name="account-settings-outline" color={color} size={25} />
+                <MaterialCommunityIcons name="account-settings-outline" color={color} size={30} />
               ),
+              //  tabBarBadge: 1,
+
             }}
           />
         </Tab.Navigator>

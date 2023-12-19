@@ -16,7 +16,7 @@ const Metric = () => {
 				{/* fin du header */}
 				{/* début du liste des variables */}
 				<View style={dashboardStyles.title}>
-					<Text style={dashboardStyles.titleText}>Mes variables</Text>
+					<Text style={dashboardStyles.titleText}>Mes relevés/ sessions/ metric</Text>
 				</View>
 				<View>
 					<Metrics/>

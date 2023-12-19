@@ -1,5 +1,6 @@
 import { StyleSheet } from "react-native";
 import { PADDING } from "./constantes";
+import { COLORMAIN } from "./constantes";
 
 const appStyles = StyleSheet.create({
 	header: {
@@ -30,6 +31,24 @@ const appStyles = StyleSheet.create({
 		
 		
 	},
+	rowInput :	{
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		borderColor: 'gray',
+		width: 250,
+		borderWidth: 1,
+		marginBottom: 10,
+		paddingLeft: 10,
+		paddingRight: 10,
+	},
+
+	row: {
+		flexDirection: 'row',
+		width: 250,
+		justifyContent: 'space-between',
+		borderColor: 'gray',
+		
+	},
 	userImage: {
 		width: 50,
 		height: 50,
@@ -54,11 +73,30 @@ const appStyles = StyleSheet.create({
 		backgroundColor: 'white',
 		margin: 10,
 		borderRadius: 15,
+		backgroundColor: COLORMAIN.lightBlue,
 		
 	},
-	text: {
+	create: {
+		borderBottomWidth: 1,
+		borderBottomColor: 'white',
+		paddingVertical: 10,
+		paddingHorizontal: 10,
+		backgroundColor: 'white',
+		margin: 10,
+		borderRadius: 15,
+		backgroundColor: COLORMAIN.pinket,
+		
+	},
+	text:{
 		fontSize: 18,
 		marginBottom: 5,
+		color : 'grey',
+	},
+	
+	textWhite:{
+		fontSize: 18,
+		marginBottom: 5,
+		color: 'white',
 	},
 	
 	idText: {
@@ -110,11 +148,14 @@ const appStyles = StyleSheet.create({
 	},
 	modalButtonContainer: {
 		flexDirection: 'row',
-		justifyContent: 'space-around', // Utiliser l'espace autour des éléments
+		justifyContent: 'space-between', // Utiliser l'espace autour des éléments
 		width: '100%',
 	},
 	input: {
 		flexDirection: 'column',
+		justifyContent: 'center',
+		alignContent: 'center',
+		alignItems: 'center',
 	},
 	inputField: {
 		height: 40,
@@ -124,7 +165,15 @@ const appStyles = StyleSheet.create({
 		marginBottom: 10,
 		paddingLeft: 10,
 		paddingRight: 10,
+		
 	},
+	button: {
+		flexDirection: 'row',
+		backgroundColor: '#d46363',
+		padding: 10,
+	},
+	
+	
 });
 
 export default appStyles;

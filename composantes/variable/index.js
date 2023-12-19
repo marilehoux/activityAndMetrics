@@ -1,12 +1,12 @@
 import React, { useState, useEffect} from 'react';
-import { View, Text, FlatList, TouchableHighlight,  Button, Modal, TextInput, Alert } from 'react-native'
+import { View, Text, FlatList, TouchableHighlight,  Button, Modal, TextInput, Alert, TouchableWithoutFeedback } from 'react-native'
 import appStyles from '../../outils/style';
 import DeleteActivityButton from '../activitie/deleteActivityButton';
 import { set } from '@gluestack-style/react';
 
 
-const Activities = () => {
-    const [activities, setActivities] = useState([]);
+const Variables = () => {
+    const [variables, setVariables] = useState([]);
     const [selectedItem, setSelectedItem] = useState(null);
     const [modalVisible, setModalVisible] = useState(false);
 
@@ -49,7 +49,7 @@ const Activities = () => {
 			};
 
 			await Promise.all([
-				fetchAndSetData('https://api.pebble.solutions/v5/activity', setActivities),
+				fetchAndSetData('https://api.pebble.solutions/v5/metric/variable/', setVariables),
 			]);
 			} catch (error) {
 				console.error('Erreur lors de la récupération des données:', error, error.message);
@@ -84,8 +84,8 @@ const Activities = () => {
     };
     const modifyActivityButton = () => {
 
-		const modifyActivity = async () => {
-			let modifiedActivity = {
+		const modifyVariable = async () => {
+			let modifiedVariable = {
 				"id": selectedItem._id,
 				"label": modifiedLabel,
 				"description": modifiedDescription,
@@ -96,7 +96,7 @@ const Activities = () => {
 			}
 			console.log(modifiedActivity, 'activity')
 			try {
-				const response = await fetch('https://api.pebble.solutions/v5/activity/'+modifiedActivity.id, {
+				const response = await fetch('https://api.pebble.solutions/v5/metric/variable'+modifiedVariable.id, {
 					method: 'PATCH',
 					headers: {
 						'Content-Type': 'application/json',
@@ -127,7 +127,7 @@ const Activities = () => {
 
 			}
 		}
-		modifyActivity();
+		modifyVariable();
 	
 
 
@@ -152,7 +152,7 @@ const Activities = () => {
             <View style={appStyles.modalContainer}>
 					<View style={appStyles.modalButtonContainer}>
 					<DeleteActivityButton
-						title={selectedItem.label}
+						title='SUPPR. '
 						id={selectedItem._id}
 					/>
 						<Button  title="Annuler" color="grey" onPress={handleModalClose} />
@@ -223,14 +223,14 @@ const Activities = () => {
 			}	
 			
 		}
-        if (!activities) {
+        if (!variables) {
           return null;
         }
     
         return (
             <View >
                 <FlatList horizontal={false}
-                  data={activities}
+                  data={variables}
                   keyExtractor={(item) => item._id.toString()}
                   renderItem={({ item }) => (
 					<View style={appStyles.itemContainer}>
@@ -239,11 +239,17 @@ const Activities = () => {
 							<View >
 								<Text style={appStyles.headerListItemText}>{item.label}</Text>
 								<Text style={appStyles.text}>{item.description}</Text>
-								<Text style={appStyles.text}><Text style={appStyles.idText}>début: </Text>{formatageDate(item.start)}</Text>
-								<Text style={appStyles.text}><Text style={appStyles.idText}>fin: </Text>{formatageDate(item.end)}</Text>
-								<Text style={appStyles.text}><Text style={appStyles.idText}>couleur: </Text>{item.color}</Text>
-								<Text style={appStyles.text}><Text style={appStyles.idText}>logo: </Text>{item.url_logo}</Text>
-								<Text style={appStyles.text}><Text style={appStyles.idText}>img: </Text>{item.img}</Text>
+                                <Text style={appStyles.text}>{item.question}</Text>
+                                <Text style={appStyles.text}>type: {item.type}</Text>
+                                <Text style={appStyles.text}>valeur par défaut:{item.defaultValue}</Text>
+                                <Text style={appStyles.text}>exemple:{item.example}</Text>
+                                <View style={appStyles.row}>
+                                    <Text style={appStyles.text}><Text style={appStyles.idText}>validité du </Text>{formatageDate(item.start)}</Text>
+                                    <Text style={appStyles.text}><Text style={appStyles.idText}> au </Text>{formatageDate(item.end)}</Text>
+                                </View>
+								<Text style={appStyles.text}><Text style={appStyles.idText}>ref: </Text>{item.internal_description}</Text>
+								<Text style={appStyles.text}><Text style={appStyles.idText}>min: </Text>{item.min_length}</Text>
+								<Text style={appStyles.text}><Text style={appStyles.idText}>max: </Text>{item.max_lenght}</Text>
 								<Text style={appStyles.text}>statut: {item.status}</Text>
 							</View>
 						</TouchableHighlight>
@@ -269,5 +275,5 @@ const Activities = () => {
 }
 
 
-export default Activities
+export default Variables
 
