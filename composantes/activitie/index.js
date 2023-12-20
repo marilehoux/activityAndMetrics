@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from 'react';
-import { View, Text, FlatList, TouchableHighlight,  Button, Modal, TextInput, Alert } from 'react-native'
+import { View, Text, FlatList, TouchableHighlight,  Button, Modal, TextInput, Alert, SafeAreaView } from 'react-native'
 import appStyles from '../../outils/style';
 import DeleteActivityButton from '../activitie/deleteActivityButton';
 import { set } from '@gluestack-style/react';
@@ -228,7 +228,7 @@ const Activities = () => {
         }
     
         return (
-            <View >
+            <View>
                 <FlatList horizontal={false}
                   data={activities}
                   keyExtractor={(item) => item._id.toString()}

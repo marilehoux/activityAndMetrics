@@ -121,7 +121,7 @@ const CreateActivity = () => {
 					<TextInput
 						style={Styles.inputField}
 						placeholder = 'color'
-						value={setCreateColor}
+						value={createColor}
 						onchangeText={handleCreateColor}>
 					</TextInput>
 					<View style={Styles.rowInput}>
