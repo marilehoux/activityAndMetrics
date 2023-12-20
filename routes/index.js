@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from '../ecrans/Activities';
 import BottomTabs from '../ecrans/tabs';
-import SaisieScreen from '../composantes/variable/createVariable/saisie';
+import CreationVariableScreen from '../composantes/variable/creationVariable';
 
 
 const Routes = () => {
@@ -14,7 +14,7 @@ const Routes = () => {
                 initialRouteName='home'
                 screenOptions={{headerShown: false}}>
                 <Stack.Screen name="home" component={BottomTabs} />
-                <Stack.Screen name ="saisie" component={SaisieScreen} />
+                <Stack.Screen name ="creationVariable" component={CreationVariableScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     )

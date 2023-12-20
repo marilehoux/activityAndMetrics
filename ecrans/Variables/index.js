@@ -2,9 +2,9 @@ import { View, Text, Image, ScrollView, Button} from 'react-native'
 import React from 'react'
 import appStyles from '../../outils/style'
 import Variables from '../../composantes/variable'
-import CreateVariable from '../../composantes/variable/createVariable'
 
 import MaterialCommutyIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import CreateVariable from '../../composantes/variable/createVariable'
 
 
 
@@ -31,7 +31,7 @@ const Home = ({navigation}) => {
 				<Button
 					title='Création variable test'
 					color='#0000FF'
-					onPress={() => navigation.navigate('saisie')}
+					onPress={() => navigation.navigate('creationVariable')}
 				/>
 				{/* début du liste des activités */}	
 				<Variables/>
