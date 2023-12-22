@@ -14,7 +14,7 @@ const Routes = () => {
                 initialRouteName='home'
                 screenOptions={{headerShown: false}}>
                 <Stack.Screen name="home" component={BottomTabs} />
-                <Stack.Screen name ="creationVariable" component={CreationVariableScreen} />
+                <Stack.Screen name ="creationVariable" component={CreationVariableScreen} initialParams={{ page: 'typeSaisie' }}/>
             </Stack.Navigator>
         </NavigationContainer>
     )

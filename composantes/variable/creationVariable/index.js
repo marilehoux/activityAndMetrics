@@ -1,119 +1,138 @@
-import { View, Text, ScrollView, TextInput, StyleSheet, Alert, Button } from 'react-native'
-import React, { useState } from 'react'
-import SaisieScreen from './saisie';
-import Styles from '../../../outils/style';
+import { View, Text, ScrollView, TextInput } from 'react-native'
+import React, { createContext, useState } from 'react'
+import TypeSaisieScreen from './typeSaisie';
 import TypeReponseScreen from './typeReponse';
+import variableStyles from './style';
+import { Button, Switch } from 'react-native-paper';
+import DetailsSaisieScreen from './details';
+import PieceJointeScreen from './pieceJointe';
+import RecapScreen from './recap';
+import DebutFinScreen from './debutFin';
 
-const CreationVariableScreen = () => {
-const [page, setPage] = useState('saisie');
+const CreationVariableScreen = ({route, navigation}) => {
+    const {page, createdVariable} = route.params;
 
-const [variable, setVariable] = useState('Création d\'une nouvelle variable');
-	const [createLabel, setCreateLabel] = useState('');
-	const [createDescription, setCreateDescription] = useState('');
-    const [createQuestion, setCreateQuestion] = useState('');
-    const [createDefaultValue, setCreateDefaultValue] = useState('');
-    const [createMinValue, setCreateMinValue] = useState('');
-    const [createMaxValue, setCreateMaxValue] = useState('');
-    const [createType, setCreateType] = useState('');
-    const [createDateStart, setCreateDateStart] = useState(new Date());
-	const [createDateEnd, setCreateDateEnd] = useState(new Date);
-	const [newVariable, setNewVariable] = useState('');
-    const [openStart, setOpenStart] = useState(false);
-    const [openEnd, setOpenEnd] = useState(false);
+    const [variable, setVariable] = useState(createdVariable);
 
-    const handleCreateLabel = (text) => {
-		setCreateLabel(text);
-	};
-	const handleCreateDescription = (text) => {
-		setCreateDescription(text);
-	};
-    const handleCreateQuestion = (text) => {
-        setCreateQuestion(text);
-    };
-    const handleCreateDefaultValue = (text) => {
-        setCreateDefaultValue(text);
-    };
-    const handleCreateMinValue = (text) => {
-        setCreateMinValue(text);
-    };
-    const handleCreateMaxValue = (text) => {
-        setCreateMaxValue(text);
-    };
-    const handleCreateType = (text) => {
-        setCreateType(text);
-    };
-	const handleCreateDateStart = (date) => {
-		setCreateDateStart(new Date(date));
-	};
-	const handleCreateDateEnd = (date) => {
-		setCreateDateEnd(date);
-	};
+    if(variable?.required == undefined) setVariable({...variable, required : false})
+    if(variable?.file_upload_enabled == undefined) setVariable({...variable, file_upload_enabled : false})
+    if(variable?.file_upload_required == undefined) setVariable({...variable, file_upload_required : false})
 
     const RenderElement = () => {
         switch(page){
-            case 'saisie' :
-                return <SaisieScreen />
-            case 'type' :
+            case 'dateDebutFin':
+                return <DebutFinScreen />
+            case 'typeSaisie' :
+                return <TypeSaisieScreen />
+            case 'typeReponse' :
                 return <TypeReponseScreen />
-        }
+            case 'detailsSaisie' :
+                return <DetailsSaisieScreen />
+            case 'pieceJointe' :
+                return <PieceJointeScreen />
+            case 'recap' :
+                return <RecapScreen />
+    }
     };
 
     const Retour = () => {
-        Alert.alert("retour")
+        navigation.goBack()
     }
 
     const Valider = () => {
-        if(page === 'saisie') setPage('type')
+        switch(page){
+            case 'typeSaisie':
+                navigation.push('creationVariable', { page: 'detailsSaisie', createdVariable: variable })
+                break
+            case 'detailsSaisie' :
+                navigation.push('creationVariable', { page: 'dateDebutFin', createdVariable: variable })
+                break
+            case 'dateDebutFin' :
+                navigation.push('creationVariable', { page: 'pieceJointe', createdVariable: variable })
+                break
+            case 'pieceJointe' :
+                navigation.push('creationVariable', { page: 'recap', createdVariable: variable })
+                break
+        }
     }
 
     return (
         <ScrollView>
-            <View style={Styles.create} >
-                <Text style={Styles.headerListItemText}>{variable}</Text>
-                <Text style={Styles.text}>{newVariable.label}</Text>
+            <View>
+                <Text style={variableStyles.title}>Création d'une nouvelle variable</Text>
                         
-                <View style={Styles.input}>
+                <View style={variableStyles.inputRow}>
+                    <Text style={variableStyles.inputLabel}>
+                        Libellé
+                    </Text>
                     <TextInput
-                        style={Styles.inputField}
+                        style={variableStyles.inputField}
                         placeholder = 'Saississez un libellé'
-                        value ={createLabel}
-                        onChangeText={handleCreateLabel}>
+                        value ={variable?.label}
+                        onChangeText={(text) => {
+                            setVariable({...variable, label : text})}}>
                     </TextInput>
                 </View>
-                <View style={Styles.input}>
-                    <Text>
+
+                <View style={variableStyles.inputRow}>
+                    <Text style={variableStyles.inputLabel}>
                         Description
                     </Text>
                     <TextInput
-                        style={Styles.inputField}
+                        style={variableStyles.inputField}
                         placeholder = 'Saississez une description'
-                        value ={createDescription}
-                        onChangeText={handleCreateDescription}
+                        value ={variable?.description}
+                        onChangeText={(text) => {
+                            setVariable({...variable, description : text})}}
                         multiline={true}>
                     </TextInput>
                 </View>
-                <View style={Styles.input}>
+
+                <View style={variableStyles.inputRow}>
+                    <Text style={variableStyles.inputLabel}>
+                        Question
+                    </Text>
                     <TextInput
-                        style={Styles.inputField}
-                        value={createQuestion}
-                        onChangeText={handleCreateQuestion}
+                        style={variableStyles.inputField}
+                        value={variable?.question}
+                        onChangeText={(text) => {
+                            setVariable({...variable, question : text})}}
                         placeholder='Saisissez votre question'>
                     </TextInput>
                 </View>
+
                 <View>
-                    <RenderElement />
+                    <VariableContext.Provider value={{variable, setVariable, navigation}}>
+                        <RenderElement />
+                    </VariableContext.Provider>
+                </View>
+
+                <View style={variableStyles.buttonContainer}>
+                    <Button
+                        icon="arrow-left"
+                        mode="outlined"
+                        textColor='black'
+                        onPress={Retour}>
+                        Retour
+                    </Button>
+
+                    { page != 'recap' &&
+                    <Button
+                        icon="arrow-right"
+                        mode="outlined"
+                        textColor='black'
+                        contentStyle={{flexDirection: 'row-reverse'}}
+                        onPress={Valider}>
+                        Valider
+                    </Button>
+                    }
                 </View>
             </View>
-            <View style={Styles.buttonContainer}>
-                <Button
-                    title="Retour"
-                    onPress={Retour} />
-                <Button
-                    title="Valider"
-                    onPress={Valider} />
-            </View>
         </ScrollView>
+        
     )
 }
+
+export const VariableContext = createContext()
 
 export default CreationVariableScreen
