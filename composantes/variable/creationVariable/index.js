@@ -9,6 +9,23 @@ import PieceJointeScreen from './pieceJointe';
 import RecapScreen from './recap';
 import DebutFinScreen from './debutFin';
 
+const RenderElement = ({page}) => {
+    switch(page){
+        case 'dateDebutFin':
+            return <DebutFinScreen />
+        case 'typeSaisie' :
+            return <TypeSaisieScreen />
+        case 'typeReponse' :
+            return <TypeReponseScreen />
+        case 'detailsSaisie' :
+            return <DetailsSaisieScreen />
+        case 'pieceJointe' :
+            return <PieceJointeScreen />
+        case 'recap' :
+            return <RecapScreen />
+    }
+};
+
 const CreationVariableScreen = ({route, navigation}) => {
     const {page, createdVariable} = route.params;
 
@@ -17,23 +34,6 @@ const CreationVariableScreen = ({route, navigation}) => {
     if(variable?.required == undefined) setVariable({...variable, required : false})
     if(variable?.file_upload_enabled == undefined) setVariable({...variable, file_upload_enabled : false})
     if(variable?.file_upload_required == undefined) setVariable({...variable, file_upload_required : false})
-
-    const RenderElement = () => {
-        switch(page){
-            case 'dateDebutFin':
-                return <DebutFinScreen />
-            case 'typeSaisie' :
-                return <TypeSaisieScreen />
-            case 'typeReponse' :
-                return <TypeReponseScreen />
-            case 'detailsSaisie' :
-                return <DetailsSaisieScreen />
-            case 'pieceJointe' :
-                return <PieceJointeScreen />
-            case 'recap' :
-                return <RecapScreen />
-        }
-    };
 
     const Retour = () => {
         navigation.goBack()
@@ -107,7 +107,7 @@ const CreationVariableScreen = ({route, navigation}) => {
 
                 <View>
                     <VariableContext.Provider value={{variable, setVariable, navigation}}>
-                        <RenderElement />
+                        <RenderElement page={page}/>
                     </VariableContext.Provider>
                 </View>
 

@@ -5,47 +5,45 @@ import variableStyles from './style';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { COLORMAIN } from "../../../outils/constantes";
 
-
-const DetailsSaisieScreen = () => {
+const NombreComposant = () => {
     const {variable, setVariable} = useContext(VariableContext);
 
-    const NombreComposant = () =>{
-        
-        return(
-            <View>
-                <View style={[variableStyles.inputRow, variableStyles.inputRowNumeric]}>
-                    <Text>Valeur par défaut</Text>
-                    <TextInput
-                        style={[variableStyles.inputField, variableStyles.inputFieldNumeric]}
-                        value ={variable.default_value}
-                        inputMode='numeric'
-                        onChangeText={(text) => {
-                        setVariable({...variable, default_value : text})}}>        
-                    </TextInput>
-                </View>
-                <View style={[variableStyles.inputRow, variableStyles.inputRowNumeric]}>
-                <Text>Min</Text>
+    return(
+        <View>
+            <View style={[variableStyles.inputRow, variableStyles.inputRowNumeric]}>
+                <Text>Valeur par défaut</Text>
                 <TextInput
                     style={[variableStyles.inputField, variableStyles.inputFieldNumeric]}
-                    value ={variable.min_value}
+                    value ={variable.default_value}
                     inputMode='numeric'
                     onChangeText={(text) => {
-                    setVariable({...variable, min_value : text})}}>        
-                </TextInput>
-                <Text>Max</Text>
-                <TextInput
-                    style={[variableStyles.inputField, variableStyles.inputFieldNumeric]}
-                    value ={variable.max_value}
-                    inputMode='numeric'
-                    onChangeText={(text) => {
-                    setVariable({...variable, max_value : text})}}>        
+                    setVariable({...variable, default_value : text})}}>        
                 </TextInput>
             </View>
+            <View style={[variableStyles.inputRow, variableStyles.inputRowNumeric]}>
+            <Text>Min</Text>
+            <TextInput
+                style={[variableStyles.inputField, variableStyles.inputFieldNumeric]}
+                value ={variable.min_value}
+                inputMode='numeric'
+                onChangeText={(text) => {
+                setVariable({...variable, min_value : text})}}>        
+            </TextInput>
+            <Text>Max</Text>
+            <TextInput
+                style={[variableStyles.inputField, variableStyles.inputFieldNumeric]}
+                value ={variable.max_value}
+                inputMode='numeric'
+                onChangeText={(text) => {
+                setVariable({...variable, max_value : text})}}>        
+            </TextInput>
         </View>
-        )
-    }
+    </View>
+    )
+}
 
 const TexteComposant = () => {
+    const {variable, setVariable} = useContext(VariableContext);
 
     return(       
         <View style={[variableStyles.inputRow, variableStyles.inputRowNumeric]}>
@@ -71,6 +69,8 @@ const TexteComposant = () => {
 }
 
 const DateComposant = () => {
+    const {variable, setVariable} = useContext(VariableContext);
+
     const [openDefault, setOpenDefault] = useState(false);
     const [openMin, setOpenMin] = useState(false);
     const [openMax, setOpenMax] = useState(false);
@@ -141,6 +141,8 @@ const DateComposant = () => {
 }
 
 const RequiredSwitch = () => {
+    const {variable, setVariable} = useContext(VariableContext);
+
     return(
         <View style={variableStyles.switchContainer}>
             <Text style={variableStyles.body}>Obligatoire</Text>
@@ -154,19 +156,30 @@ const RequiredSwitch = () => {
     )
 }
 
-  return (
-    <View>
-        <Text style={variableStyles.body}>Vous avez sélectionné une variable de type {variable.type}</Text>
+const RenderElement = ({type}) => {
+    switch(type){
+        case 'Nombre':
+            return <NombreComposant />
+        case 'Texte':
+            return <TexteComposant />
+        case 'Date':
+        case 'Période':
+            return <DateComposant />
+    }
+}
 
-        {variable.type === 'Nombre' && <NombreComposant />}
+const DetailsSaisieScreen = () => {
+    const {variable, setVariable} = useContext(VariableContext);
 
-        {variable.type === 'Texte' && <TexteComposant />}
+    return (
+        <View>
+            <Text style={variableStyles.body}>Vous avez sélectionné une variable de type {variable.type}</Text>
 
-        {(variable.type === 'Date' || variable.type === 'Période') && <DateComposant />}
+            <RenderElement type={variable.type} />
 
-        <RequiredSwitch />
-    </View>
-  )
+            <RequiredSwitch />
+        </View>
+    )
 }
 
 export default DetailsSaisieScreen
