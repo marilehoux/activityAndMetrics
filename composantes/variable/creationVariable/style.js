@@ -72,7 +72,7 @@ const variableStyles = StyleSheet.create({
         paddingHorizontal: 10,
         borderRadius: 10,
         fontSize: TEXT_SIZE.body,
-        paddingVertical: 10
+        paddingVertical: 10,
     },
     radio : {
         flexDirection: 'row',

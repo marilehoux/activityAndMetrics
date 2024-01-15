@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, TextInput } from 'react-native'
+import { View, Text, ScrollView, TextInput, Alert } from 'react-native'
 import React, { createContext, useState } from 'react'
 import TypeSaisieScreen from './typeSaisie';
 import TypeReponseScreen from './typeReponse';
@@ -32,7 +32,7 @@ const CreationVariableScreen = ({route, navigation}) => {
                 return <PieceJointeScreen />
             case 'recap' :
                 return <RecapScreen />
-    }
+        }
     };
 
     const Retour = () => {
@@ -42,7 +42,11 @@ const CreationVariableScreen = ({route, navigation}) => {
     const Valider = () => {
         switch(page){
             case 'typeSaisie':
-                navigation.push('creationVariable', { page: 'detailsSaisie', createdVariable: variable })
+                if(variable.type){
+                    navigation.push('creationVariable', { page: 'detailsSaisie', createdVariable: variable })
+                } else {
+                    Alert.alert('Attention', 'La saisie du type de variable est obligatoire')
+                }                
                 break
             case 'detailsSaisie' :
                 navigation.push('creationVariable', { page: 'dateDebutFin', createdVariable: variable })

@@ -8,11 +8,6 @@ const RecapScreen = () => {
     const {variable, setVariable, navigation} = useContext(VariableContext);
 
     const sendVariable = async () => {
-        setVariable({...variable,
-            start : start != undefined ? variable.start.toISOString() : null,
-            end : end != undefined ? variable.end.toISOString() : null 
-        })
-
         console.log(variable)
         try {
             const response = await fetch('https://api.pebble.solutions/v5/metric/variable/', {
@@ -24,19 +19,23 @@ const RecapScreen = () => {
             });
             
             if (response.status == 201){
-                    navigation.navigate('home')
-                    Alert.alert('enregistrement effectué');
-                    let data = response.json();
-                    console.log(data, 'data');
-                }
-                    
-            else if (response.status == 400 ||
+                Alert.alert('Enregistrement effectué', null, [
+                    {
+                      text: 'OK',
+                      onPress: () => navigation.navigate('home'),
+                      style: 'default',
+                    },
+                  ])
+                
+                let data = response.json();
+                console.log(data, 'data');
+            } else if (response.status == 400 ||
                      response.status == 403 ||
                      response.status == 404 || 
                      response.status == 429 ||
                      response.status == 422 ||
                      response.status == 500){	
-                    Alert.alert('Enregistrement impossible');
+                Alert.alert('Enregistrement impossible');
             }
         }
         catch (error) {

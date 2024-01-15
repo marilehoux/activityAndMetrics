@@ -1,67 +1,70 @@
 import { View, Text, Switch, TextInput } from 'react-native'
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { VariableContext } from '.';
 import variableStyles from './style';
-import DatePicker from 'react-native-date-picker';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import { COLORMAIN } from "../../../outils/constantes";
 
 
 const DetailsSaisieScreen = () => {
-  const {variable, setVariable} = useContext(VariableContext);
+    const {variable, setVariable} = useContext(VariableContext);
 
-  const NombreComposant = () =>{
-    return(
-        <View>
-            <View style={[variableStyles.inputRow, variableStyles.inputRowNumeric]}>
-                <Text>Valeur par défaut</Text>
+    const NombreComposant = () =>{
+        
+        return(
+            <View>
+                <View style={[variableStyles.inputRow, variableStyles.inputRowNumeric]}>
+                    <Text>Valeur par défaut</Text>
+                    <TextInput
+                        style={[variableStyles.inputField, variableStyles.inputFieldNumeric]}
+                        value ={variable.default_value}
+                        inputMode='numeric'
+                        onChangeText={(text) => {
+                        setVariable({...variable, default_value : text})}}>        
+                    </TextInput>
+                </View>
+                <View style={[variableStyles.inputRow, variableStyles.inputRowNumeric]}>
+                <Text>Min</Text>
                 <TextInput
                     style={[variableStyles.inputField, variableStyles.inputFieldNumeric]}
-                    value ={variable.default_value}
+                    value ={variable.min_value}
                     inputMode='numeric'
                     onChangeText={(text) => {
-                    setVariable({...variable, default_value : text})}}>        
+                    setVariable({...variable, min_value : text})}}>        
+                </TextInput>
+                <Text>Max</Text>
+                <TextInput
+                    style={[variableStyles.inputField, variableStyles.inputFieldNumeric]}
+                    value ={variable.max_value}
+                    inputMode='numeric'
+                    onChangeText={(text) => {
+                    setVariable({...variable, max_value : text})}}>        
                 </TextInput>
             </View>
-            <View style={[variableStyles.inputRow, variableStyles.inputRowNumeric]}>
-            <Text>Min</Text>
-            <TextInput
-                style={[variableStyles.inputField, variableStyles.inputFieldNumeric]}
-                value ={variable.min_value}
-                inputMode='numeric'
-                onChangeText={(text) => {
-                setVariable({...variable, min_value : text})}}>        
-            </TextInput>
-            <Text>Max</Text>
-            <TextInput
-                style={[variableStyles.inputField, variableStyles.inputFieldNumeric]}
-                value ={variable.max_value}
-                inputMode='numeric'
-                onChangeText={(text) => {
-                setVariable({...variable, max_value : text})}}>        
-            </TextInput>
         </View>
-    </View>
-    )
-  }
+        )
+    }
 
 const TexteComposant = () => {
-    return(
+
+    return(       
         <View style={[variableStyles.inputRow, variableStyles.inputRowNumeric]}>
             <Text>Nombre de caractères min</Text>
             <TextInput
                 style={[variableStyles.inputField, variableStyles.inputFieldNumeric]}
                 value ={variable.min_length}
-                inputMode='numeric'
+                keyboardType='numeric'
                 onChangeText={(text) => {
-                setVariable({...variable, min_length : text})}}>        
+                    setVariable({...variable, min_length : text})
+                }}>        
             </TextInput>
             <Text>Nombre de caractères max</Text>
             <TextInput
                 style={[variableStyles.inputField, variableStyles.inputFieldNumeric]}
                 value ={variable.max_length}
-                inputMode='numeric'
+                keyboardType='numeric'
                 onChangeText={(text) => {
-                setVariable({...variable, max_length : text})}}>        
+                    setVariable({...variable, max_length : text})}}>        
             </TextInput>
         </View>
     )
@@ -78,54 +81,40 @@ const DateComposant = () => {
                     <Text
                         style={[variableStyles.inputField, variableStyles.body]}
                         onPress={() => setOpenDefault(true)}>
-                        {variable.default_value?.toLocaleDateString("fr") ?? '__/__/____'}
+                        {variable.default_value ? new Date(variable.default_value).toLocaleDateString("fr") : '__/__/____'}
                     </Text>
-                    <DatePicker
-                        modal
-                        title={'Date par défaut'}
-                        cancelText={'Annuler'}
-                        confirmText={'Confirmer'}
-                        theme="dark"
+                    {openDefault &&
+                    <DateTimePicker
                         mode="date" 
-                        locale="fr" 
-                        androidVariant='nativeAndroid'
-                        open={openDefault}
-                        date={variable.default_value ?? new Date()}
-                        onConfirm={(date) => {
-                            setVariable({...variable, default_value: date})
+                        display='spinner'
+                        value={variable.default_value ? new Date(variable.default_value) : new Date()}
+                        onChange={(event, selectedDate) => {
+                            if(event.type==='set'){
+                                setVariable({...variable, default_value: selectedDate.toJSON()})
+                            }                            
                             setOpenDefault(false)
                         }}
-                        onCancel={() => {
-                        setOpenDefault(false)
-                        }}
-                    />
+                    />}
                 </View>
                 <View style={[variableStyles.inputRow, variableStyles.inputRowDate]}>
                     <Text style={variableStyles.body}>Date minimum</Text>
                     <Text
                         style={[variableStyles.inputField, variableStyles.body]}
                         onPress={() => setOpenMin(true)}>
-                        {variable.min_value?.toLocaleDateString("fr") ?? '__/__/____'}
+                        {variable.min_value ? new Date(variable.min_value).toLocaleDateString("fr") : '__/__/____'}
                     </Text>
-                    <DatePicker
-                        modal
-                        title={'Date minimum'}
-                        cancelText={'Annuler'}
-                        confirmText={'Confirmer'}
-                        theme="dark"
+                    {openMin &&
+                    <DateTimePicker
                         mode="date" 
-                        locale="fr" 
-                        androidVariant='nativeAndroid'
-                        open={openMin}
-                        date={variable.min_value ?? new Date()}
-                        onConfirm={(date) => {
-                            setVariable({...variable, min_value: date})
+                        display='spinner'
+                        value={variable.min_value ? new Date(variable.min_value) : new Date()}
+                        onChange={(event, selectedDate) => {
+                            if(event.type==='set'){
+                                setVariable({...variable, min_value: selectedDate.toJSON()})
+                            }                            
                             setOpenMin(false)
                         }}
-                        onCancel={() => {
-                        setOpenMin(false)
-                        }}
-                    />
+                    />}
                 </View>
                 <View style={[variableStyles.inputRow, variableStyles.inputRowDate]}>
                     <Text style={variableStyles.body}>Date maximum</Text>
@@ -134,25 +123,18 @@ const DateComposant = () => {
                         onPress={() => setOpenMax(true)}>
                         {variable.max_value?.toLocaleDateString("fr") ?? '__/__/____'}
                     </Text>
-                    <DatePicker
-                        modal
-                        title={'Date maximum'}
-                        cancelText={'Annuler'}
-                        confirmText={'Confirmer'}
-                        theme="dark"
+                    {openMax &&
+                    <DateTimePicker
                         mode="date" 
-                        locale="fr" 
-                        androidVariant='nativeAndroid'
-                        open={openMax}
-                        date={variable.max_value ?? new Date()}
-                        onConfirm={(date) => {
-                            setVariable({...variable, max_value: date})
+                        display='spinner'
+                        value={variable.max_value ? new Date(variable.max_value) : new Date()}
+                        onChange={(event, selectedDate) => {
+                            if(event.type==='set'){
+                                setVariable({...variable, max_value: selectedDate.toJSON()})
+                            }                            
                             setOpenMax(false)
                         }}
-                        onCancel={() => {
-                        setOpenMax(false)
-                        }}
-                    />
+                    />}
                 </View>
             </View>
         );
