@@ -37,7 +37,7 @@ const CreateVariable = () => {
 		setCreateDateStart(new Date(date));
 	};
 	const handleCreateDateEnd = (date) => {
-		setCreateDateEnd(date);
+		setCreateDateEnd(new Date(date));
 	};
 	// const handleCreateColor = (text) => {
 	// 	setCreateColor(text);

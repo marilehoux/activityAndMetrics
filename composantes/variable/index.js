@@ -47,7 +47,6 @@ const Variables = () => {
 				setter(data);
 			
 			};
-
 			await Promise.all([
 				fetchAndSetData('https://api.pebble.solutions/v5/metric/variable/', setVariables),
 			]);

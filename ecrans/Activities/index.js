@@ -3,7 +3,6 @@ import React from 'react'
 import appStyles from '../../outils/style'
 import Activities from '../../composantes/activitie' 
 import CreateActivity from '../../composantes/activitie/createActivity'
-import MaterialCommutyIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
 
 
@@ -16,7 +15,6 @@ const Home = () => {
 
 			{/* début du header */}
 			<View style={appStyles.header}>
-				<MaterialCommutyIcons name="menu" color={'black'} size={30} />	
 				<Text style={appStyles.userName}>Amandine DOE</Text>
 				<Image style={appStyles.userImage} source={require('./../../assets/images/JaneDOE.jpg')} />
 			</View> 
