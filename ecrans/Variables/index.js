@@ -1,14 +1,14 @@
-import { View, Text, Image, ScrollView} from 'react-native'
+import { View, Text, Image, ScrollView, Button} from 'react-native'
 import React from 'react'
 import appStyles from '../../outils/style'
 import Variables from '../../composantes/variable'
-import CreateVariable from '../../composantes/variable/createVariable'
 
 import MaterialCommutyIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import CreateVariable from '../../composantes/variable/createVariable'
 
 
 
-const Home = () => {
+const Home = ({navigation}) => {
 	const Separator = () => <View style={appStyles.separator} />;
 
 	return (
@@ -28,6 +28,11 @@ const Home = () => {
 			</View>
 			<CreateVariable/>
 			<View>
+				<Button
+					title='Création variable test'
+					color='#0000FF'
+					onPress={() => navigation.navigate('creationVariable')}
+				/>
 				{/* début du liste des activités */}	
 				<Variables/>
 				{/* fin du liste des activités */}
