@@ -73,8 +73,7 @@ const appStyles = StyleSheet.create({
 		backgroundColor: 'white',
 		margin: 10,
 		borderRadius: 15,
-		backgroundColor: COLORMAIN.lightBlue,
-		
+		backgroundColor: COLORMAIN.bluet,		
 	},
 	create: {
 		borderBottomWidth: 1,
@@ -88,11 +87,16 @@ const appStyles = StyleSheet.create({
 		
 	},
 	text:{
-		fontSize: 18,
+		fontSize: 16,
 		marginBottom: 5,
 		color : 'grey',
 	},
-	
+	boldText:{
+		fontSize: 18,
+        fontStyle: 'bold',
+		marginBottom: 5,
+		color : 'grey',
+	},
 	textWhite:{
 		fontSize: 18,
 		marginBottom: 5,

@@ -26,7 +26,7 @@ const Home = ({navigation}) => {
 			<View style={appStyles.title}>
 				<Text style={appStyles.titleText}>Mes variables</Text>
 			</View>
-			<CreateVariable/>
+			{/* <CreateVariable/> */}
 			<View>
 				<Button
 					title='Création variable test'

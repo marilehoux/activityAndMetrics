@@ -1,8 +1,7 @@
 import React, { useState, useEffect} from 'react';
 import { View, Text, FlatList, TouchableHighlight,  Button, Modal, TextInput, Alert, TouchableWithoutFeedback } from 'react-native'
 import appStyles from '../../outils/style';
-import DeleteActivityButton from '../activitie/deleteActivityButton';
-import { set } from '@gluestack-style/react';
+import DeleteVarButton from '../variable/deleteVarButton';
 
 
 const Variables = () => {
@@ -151,10 +150,10 @@ const Variables = () => {
           >
             <View style={appStyles.modalContainer}>
 					<View style={appStyles.modalButtonContainer}>
-					<DeleteActivityButton
-						title='SUPPR. '
-						id={selectedItem._id}
-					/>
+                        <DeleteVarButton
+                            title='Suppression '
+                            id={selectedItem._id}
+                        />
 						<Button  title="Annuler" color="grey" onPress={handleModalClose} />
 					</View>
 				<View style={appStyles.modalHeader}>
@@ -239,17 +238,17 @@ const Variables = () => {
 							<View >
 								<Text style={appStyles.headerListItemText}>{item.label}</Text>
 								<Text style={appStyles.text}>{item.description}</Text>
-                                <Text style={appStyles.text}>{item.question}</Text>
+                                <Text style={appStyles.boldText}><Text style={appStyles.idText}>Question : </Text>{item.question}</Text>
                                 <Text style={appStyles.text}>type: {item.type}</Text>
-                                <Text style={appStyles.text}>valeur par défaut:{item.defaultValue}</Text>
+                                <Text style={appStyles.text}>valeur par défaut:{item.default_value}</Text>
                                 <Text style={appStyles.text}>exemple:{item.example}</Text>
                                 <View style={appStyles.row}>
                                     <Text style={appStyles.text}><Text style={appStyles.idText}>validité du </Text>{formatageDate(item.start)}</Text>
                                     <Text style={appStyles.text}><Text style={appStyles.idText}> au </Text>{formatageDate(item.end)}</Text>
                                 </View>
-								<Text style={appStyles.text}><Text style={appStyles.idText}>ref: </Text>{item.internal_description}</Text>
-								<Text style={appStyles.text}><Text style={appStyles.idText}>min: </Text>{item.min_length}</Text>
-								<Text style={appStyles.text}><Text style={appStyles.idText}>max: </Text>{item.max_lenght}</Text>
+								{/* <Text style={appStyles.text}><Text style={appStyles.idText}>ref: </Text>{item.internal_description}</Text> */}
+								<Text style={appStyles.text}><Text style={appStyles.idText}>min: </Text>{item.min_value}</Text>
+								<Text style={appStyles.text}><Text style={appStyles.idText}>max: </Text>{item.max_value}</Text>
 								<Text style={appStyles.text}>statut: {item.status}</Text>
 							</View>
 						</TouchableHighlight>
