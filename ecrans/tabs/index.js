@@ -36,7 +36,7 @@ const BottomTabs = () => {
             name="tabs_Home1"
             component={Metric}
             options={{
-              tabBarLabel: 'Metrics',
+              tabBarLabel: 'Sessions',
               tabBarIcon: ({ color, size }) => (
                 <MaterialCommunityIcons name="table-headers-eye" color={color} size={30} />
               ),

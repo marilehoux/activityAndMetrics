@@ -48,6 +48,10 @@ const Metrics = () => {
 		if (!selectedItem) {
 			return null;
 		}
+    
+    
+
+
 	
 	return (
 		<Modal
@@ -77,6 +81,31 @@ const Metrics = () => {
 		</Modal>
 		);
 	};
+    const RenderItem = ({ item }) => {
+        return (
+            <View style={dashboardStyles.itemContainer}>
+                <TouchableHighlight onPress={() => handleItemClick(item)}>
+                    <View>
+                        <Text style={dashboardStyles.idText}>#{item._id}</Text>
+                        <Text style={dashboardStyles.headerListItemText}>{item.label}</Text>
+                        <Text style={dashboardStyles.text}>{item.status}</Text>
+                        <Text style={dashboardStyles.text}>question utilisateur{item.question}</Text>
+                        <Text style={dashboardStyles.text}>type: {item.type}</Text>
+                        <Text style={dashboardStyles.text}>valeur mini: {item.start}</Text>
+                        <Text style={dashboardStyles.text}>valeur maxi: {item.end}</Text>
+                        <Text style={dashboardStyles.text}>par défaut: {item.default}</Text>
+                        <Text style={dashboardStyles.text}>motif: {item.description}</Text>
+                        <Text style={dashboardStyles.text}>ref: {item.internal_description}</Text>
+                    </View>
+                </TouchableHighlight>
+                <DeleteMetricButton
+                title={item.label}
+                id={item._id} 
+                /> 
+            </View>	
+                
+            )
+        }   
 
 	const renderList = () => {
 		if (!metrics) {
@@ -84,32 +113,10 @@ const Metrics = () => {
 		}
 		return (
 			<View >
-				<FlatList horizontal={false}
-				data={metrics}
-				keyExtractor={(item) => item._id.toString()}
-				renderItem={({ item }) => (
-					<View style={dashboardStyles.itemContainer}>
-						<TouchableHighlight onPress={() => handleItemClick(item)}>
-							<View>
-								<Text style={dashboardStyles.idText}>#{item._id}</Text>
-								<Text style={dashboardStyles.headerListItemText}>{item.label}</Text>
-								<Text style={dashboardStyles.text}>{item.status}</Text>
-								<Text style={dashboardStyles.text}>question utilisateur{item.question}</Text>
-								<Text style={dashboardStyles.text}>type: {item.type}</Text>
-								<Text style={dashboardStyles.text}>valeur mini: {item.start}</Text>
-								<Text style={dashboardStyles.text}>valeur maxi: {item.end}</Text>
-								<Text style={dashboardStyles.text}>par défaut: {item.default}</Text>
-								<Text style={dashboardStyles.text}>motif: {item.description}</Text>
-								<Text style={dashboardStyles.text}>ref: {item.internal_description}</Text>
-							</View>
-						</TouchableHighlight>
-						<DeleteMetricButton
-						title={item.label}
-						id={item._id} 
-						/> 
-					</View>	
-					)}
-				/>
+				
+                    <View>
+                        {metrics.map((item) => <RenderItem key={item._id} item={item}/>)}
+                    </View>
 			</View>
 		);
 	}

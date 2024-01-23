@@ -238,7 +238,7 @@ const Variables = () => {
 							<View >
 								<Text style={appStyles.headerListItemText}>{item.label}</Text>
 								<Text style={appStyles.text}>{item.description}</Text>
-                                <Text style={appStyles.boldText}><Text style={appStyles.idText}>Question : </Text>{item.question}</Text>
+                                <Text style={appStyles.boldText}><Text style={appStyles.idText}>Question :</Text>{item.question}</Text>
                                 <Text style={appStyles.text}>type: {item.type}</Text>
                                 <Text style={appStyles.text}>valeur par défaut:{item.default_value}</Text>
                                 <Text style={appStyles.text}>exemple:{item.example}</Text>

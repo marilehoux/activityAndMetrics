@@ -3,7 +3,9 @@ import { PADDING } from "./constantes";
 import { COLORMAIN } from "./constantes";
 
 const appStyles = StyleSheet.create({
-	header: {
+	
+    
+    header: {
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		alignItems: 'center',
@@ -65,6 +67,7 @@ const appStyles = StyleSheet.create({
 		fontWeight: 'bold',
 		marginBottom: 20,
 	},
+    
 	itemContainer: {
 		borderBottomWidth: 1,
 		borderBottomColor: 'white',
@@ -93,7 +96,7 @@ const appStyles = StyleSheet.create({
 	},
 	boldText:{
 		fontSize: 18,
-        fontStyle: 'bold',
+        fontWeight: 'bold',
 		marginBottom: 5,
 		color : 'grey',
 	},

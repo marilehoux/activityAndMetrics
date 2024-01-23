@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from '../ecrans/Activities';
 import BottomTabs from '../ecrans/tabs';
 import CreationVariableScreen from '../composantes/variable/creationVariable';
+import CreateSessionScreen from '../ecrans/Metrics/createSession';
 
 
 const Routes = () => {
@@ -11,10 +12,12 @@ const Routes = () => {
     return (
         <NavigationContainer>
             <Stack.Navigator
-                initialRouteName='home'
-                screenOptions={{headerShown: false}}>
-                <Stack.Screen name="home" component={BottomTabs} />
+                initialRouteName='user'
+                screenOptions={{headerShown: true}}>
+                <Stack.Screen name="Amandine DOE" component={BottomTabs} />
                 <Stack.Screen name ="creationVariable" component={CreationVariableScreen} initialParams={{ page: 'typeSaisie' }}/>
+                <Stack.Screen name="creationSession" component={CreateSessionScreen} />
+
             </Stack.Navigator>
         </NavigationContainer>
     )

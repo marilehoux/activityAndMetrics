@@ -15,11 +15,7 @@ const Home = () => {
 			<View>
 
 			{/* début du header */}
-			<View style={appStyles.header}>
-				<MaterialCommutyIcons name="menu" color={'black'} size={30} />	
-				<Text style={appStyles.userName}>Amandine DOE</Text>
-				<Image style={appStyles.userImage} source={require('./../../assets/images/JaneDOE.jpg')} />
-			</View> 
+			
 			</View>
 			{/* fin du header */}
 			<View style={appStyles.title}>
